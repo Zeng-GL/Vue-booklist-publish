@@ -2,15 +2,14 @@
 <div class="global">
 <div class="container">
       <div
-        v-for="(content,index) in contents"
+        v-for="content in contents"
         :key="content.id"
       >
       <router-link :to="`/books/${content.id}`">
         <b-card
           class="cardbody"
-          :class="{'select':index.selected}"
-          :Id="content.id"
-          @click="showDetail(index)"
+          :class="{hightlight:content.id == selected}"
+          @click="showDetail();selected = content.id"
         >
        <img :src="content.image" class="cardImg">
           <b-card-text class="cardtext">
@@ -36,14 +35,13 @@ export default {
     return {
       contents: [],
       seeDetail: false,
-      selected:false,
+      selected:undefined,
     };
   },
 
   methods: {
-    showDetail: function(index){
+    showDetail: function(){
       this.seeDetail=true;
-      index.selected = ! index.selected;
     }
     
   },
@@ -83,10 +81,13 @@ export default {
 
 
 .cardbody{
-  
   max-width: 15rem;
   text-align: center;
   margin: 3rem;
+}
+
+.cardbody:hover{
+   background: hotpink;
 }
 
 .cardImg{
@@ -105,10 +106,14 @@ export default {
  justify-content: center;
 }
 
-.select{
+
+
+.cardbody.hightlight{
   background: red;
 }
 }
+
+
 
 @media screen and (min-width: 700px)and (max-width: 1100px) {
 
@@ -134,13 +139,17 @@ export default {
 
 .cardbody{
   
-  max-width: 15rem;
+  max-width: 12rem;
   text-align: center;
   margin: 3rem;
 }
 
+.cardbody:hover{
+   background: hotpink;
+}
+
 .cardImg{
-  height: 15rem;
+  height: 12rem;
   justify-self: center;
 }
 
@@ -155,7 +164,7 @@ export default {
  justify-content: center;
 }
 
-.select{
+.cardbody.hightlight{
   background: red;
 }
 
@@ -172,13 +181,17 @@ export default {
 
 
 .cardbody{
-  max-width: 15rem;
+  max-width: 10rem;
   text-align: center;
   margin: 3rem;
 }
 
+.cardbody:hover{
+   background: hotpink;
+}
+
 .cardImg{
-  height: 15rem;
+  height: 10rem;
   justify-self: center;
 }
 
@@ -193,9 +206,10 @@ export default {
  justify-content: center;
 }
 
-.select{
+.cardbody.hightlight{
   background: red;
 }
+
 }
 </style>
 
